@@ -24,7 +24,7 @@
   margin-top: 5%;
 }
 
-input {
+#print-element-id {
   border: none;
   width: 1px;
   color: transparent;
@@ -91,4 +91,9 @@ span {
 
 .preloader {
   margin-top: 10%;
+}
+
+.table-print {
+  margin-left: 5%;
+  font-size: 13px;
 }

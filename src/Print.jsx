@@ -113,7 +113,7 @@ export default function PrintComponent() {
         <h1>Aguardando leitura ...</h1>
       </div>
     ) : (
-      <table className="table table-bordered">
+      <table className="table table-bordered table-print">
         <tbody>
           <tr>
             <td>Consulta:</td>
@@ -179,6 +179,44 @@ export default function PrintComponent() {
           </span>
         </div>
       </header>
+
+      <div className="row">
+        <div className="col-md-12">
+          <div className="row g-3 align-items-center mb-1 mt-3 col-md-6">
+            <div className="col-auto">
+              <label for="consultInput" className="col-form-label">
+                Consulta
+              </label>
+            </div>
+            <div className="col-auto">
+              <input
+                type="text"
+                className="form-control"
+                id="consultInput"
+                name="consult"
+                placeholder="Digite a consulta"
+              />
+            </div>
+          </div>
+
+          <div className="row g-3 align-items-center mb-1 mt-3 col-md-6">
+            <div className="col-auto">
+              <label for="customerInput" className="col-form-label">
+                Cliente
+              </label>
+            </div>
+            <div className="col-auto">
+              <input
+                type="text"
+                className="form-control"
+                id="customerInput"
+                name="customer"
+                placeholder="Digite o cliente"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="body-container">
         <input
