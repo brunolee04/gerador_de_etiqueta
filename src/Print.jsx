@@ -6,7 +6,10 @@ import "./Print.css";
 export default function PrintComponent() {
   const [labelElement, setLabelElement] = useState(null);
   const [showControls, setShowControls] = useState(false);
+  const [inputConsult, setInputConsult] = useState("");
+  const [inputCustomer, setInputCustomer] = useState("");
   const logo = "src/assets/img/logo_dld.png";
+  const productionMode = false; // change to true when test mode finishes
 
   const server = {
     dld: "https://dld.com.br/logistica/index.php?",
@@ -42,6 +45,22 @@ export default function PrintComponent() {
       callApi(url);
     }, 500);
   }
+
+  function generateLabel() {
+    setLabelElement(
+      <LabelData consulta={inputConsult} cliente={inputCustomer} />,
+    );
+
+    setShowControls(true);
+  }
+
+  const handleChange = (event) => {
+    setInputConsult(event.target.value);
+  };
+
+  const handleChangeCustomer = (event) => {
+    setInputCustomer(event.target.value);
+  };
 
   function callApi(url) {
     const urlParams = new URLSearchParams(url);
@@ -109,9 +128,7 @@ export default function PrintComponent() {
     const cliente = props.cliente;
 
     return labelElement == null ? (
-      <div>
-        <h1>Aguardando leitura ...</h1>
-      </div>
+      <div>{productionMode && <h1>Aguardando leitura ...</h1>}</div>
     ) : (
       <table className="table table-bordered table-print">
         <tbody>
@@ -122,6 +139,9 @@ export default function PrintComponent() {
           <tr>
             <td>Cliente:</td>
             <td>{cliente}</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>Favor conferir mercadoria no ato da entrega.</td>
           </tr>
         </tbody>
       </table>
@@ -137,7 +157,7 @@ export default function PrintComponent() {
   );
 
   function printElementById(elementId) {
-    boxApi();
+    if (productionMode) boxApi();
 
     var quantity = document.getElementById("print-quantity").value;
 
@@ -160,6 +180,13 @@ export default function PrintComponent() {
     console.log("Printing element with ID:", elementId);
   }
 
+  function cancelPrint() {
+    setInputConsult("");
+    setInputCustomer("");
+    setLabelElement(<></>);
+    setShowControls(false);
+  }
+
   var printElement = document.getElementById("print-element-id");
   if (printElement) {
     printElement.addEventListener("focusout", function () {
@@ -180,39 +207,50 @@ export default function PrintComponent() {
         </div>
       </header>
 
-      <div className="row">
-        <div className="col-md-12">
-          <div className="row g-3 align-items-center mb-1 mt-3 col-md-6">
-            <div className="col-auto">
-              <label for="consultInput" className="col-form-label">
-                Consulta
-              </label>
-            </div>
-            <div className="col-auto">
-              <input
-                type="text"
-                className="form-control"
-                id="consultInput"
-                name="consult"
-                placeholder="Digite a consulta"
-              />
+      <div className="form-body-container">
+        <div className="col-md-6 col-container">
+          <div className="row">
+            <div className="col-md-6 ma">
+              <div class="mb-3 mt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="consultId"
+                  name="consult"
+                  value={inputConsult}
+                  onChange={handleChange}
+                  placeholder="Consulta"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="row g-3 align-items-center mb-1 mt-3 col-md-6">
-            <div className="col-auto">
-              <label for="customerInput" className="col-form-label">
-                Cliente
-              </label>
+          <div className="row">
+            <div className="col-md-6 ma">
+              <div class="mb-3 mt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerName"
+                  name="customerName"
+                  placeholder="Cliente"
+                  value={inputCustomer}
+                  onChange={handleChangeCustomer}
+                />
+              </div>
             </div>
-            <div className="col-auto">
-              <input
-                type="text"
-                className="form-control"
-                id="customerInput"
-                name="customer"
-                placeholder="Digite o cliente"
-              />
+          </div>
+
+          <div className="row">
+            <div className="col-md-6 ma">
+              <div class="mb-3 mt-3">
+                <button
+                  onClick={generateLabel}
+                  className="btn btn-info btn-sm print-btn"
+                >
+                  <i class="fa-regular fa-note-sticky"></i> Gerar
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -223,14 +261,14 @@ export default function PrintComponent() {
           type="text"
           name="print-element-id"
           id="print-element-id"
-          autoFocus
-          onChange={(e) => handleUrl(e.target.value)}
+          // autoFocus
+          //  onChange={(e) => handleUrl(e.target.value)}
         />
         <div id="temp-area">{labelElement}</div>
 
         {showControls && (
           <div className="quantity-select">
-            <label htmlFor="print-quantity">Quantidade:</label>
+            <label htmlhtmlFor="print-quantity">Quantidade:</label>
             <select
               className="form-select"
               aria-label="Default select example"
@@ -249,12 +287,22 @@ export default function PrintComponent() {
               <option value="9">9</option>
               <option value="10">10</option>
             </select>
-            <button
-              onClick={() => printElementById("print-area")}
-              className="btn btn-secondary print-btn"
-            >
-              <i className="fa-solid fa-print"></i> Imprimir
-            </button>
+
+            <div className="print-buttons">
+              <button
+                onClick={cancelPrint}
+                className="btn btn-warning btn-sm print-btn mr-10"
+              >
+                <i className="fa-solid fa-print"></i> Cancelar
+              </button>
+
+              <button
+                onClick={() => printElementById("print-area")}
+                className="btn btn-success btn-lg print-btn"
+              >
+                <i className="fa-solid fa-print"></i> Imprimir
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -94,6 +94,20 @@ span {
 }
 
 .table-print {
-  margin-left: 5%;
+  /* margin-left: 5%; */
   font-size: 13px;
+}
+
+.form-body-container {
+  margin: auto;
+}
+
+.col-container,
+.ma {
+  margin: auto;
+}
+
+.print-buttons {
+  display: inline-flex;
+  gap: 10px;
 }
