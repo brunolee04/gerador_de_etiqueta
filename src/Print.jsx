@@ -159,11 +159,11 @@ export default function PrintComponent() {
         <tbody>
           <tr>
             <td className="observationText">Consulta:</td>
-            <td className="observationText">{consulta}</td>
+            <td className="td-consult">{consulta}</td>
           </tr>
           <tr>
             <td className="observationText">Cliente:</td>
-            <td className="observationText">{cliente}</td>
+            <td className="td-customer-name">{cliente}</td>
           </tr>
           <tr>
             <td colSpan={2} className="observationText">

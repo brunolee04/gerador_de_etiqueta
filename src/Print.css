@@ -120,4 +120,16 @@ span {
 
 .observationText {
   font-size: 10px;
+  line-height: 10px;
+}
+
+.td-consult {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.td-customer-name {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
 }
