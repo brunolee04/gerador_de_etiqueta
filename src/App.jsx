@@ -4,10 +4,10 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import MainRoutes from "./Routes";
 
-const serverBaseName = "/";
+const serverBaseName = "/etiqueta/";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter basename={serverBaseName}>
     <MainRoutes />
-  </BrowserRouter>
+  </BrowserRouter>,
 );

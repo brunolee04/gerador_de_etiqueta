@@ -11,6 +11,31 @@ export default function PrintComponent() {
   const logo = "src/assets/img/logo_dld.png";
   const productionMode = false; // change to true when test mode finishes
 
+  // Source - https://stackoverflow.com/a/10211214
+  // Posted by Mark Walters, modified by community. See post 'Timeline' for change history
+  // Retrieved 2026-02-12, License - CC BY-SA 4.0
+
+  var currentdate = new Date();
+  var month = currentdate.getMonth() + 1;
+  month = month < 10 ? `0${month}` : month;
+
+  var hour = currentdate.getHours();
+  hour = hour < 10 ? `0${hour}` : hour;
+
+  var min = currentdate.getMinutes();
+  min = min < 10 ? `0${min}` : min;
+
+  const datetime =
+    currentdate.getDate() +
+    "/" +
+    month +
+    "/" +
+    currentdate.getFullYear() +
+    " " +
+    hour +
+    ":" +
+    min;
+
   const server = {
     dld: "https://dld.com.br/logistica/index.php?",
     head: "https://headbrasil.com.br/feed/logistica",
@@ -133,15 +158,17 @@ export default function PrintComponent() {
       <table className="table table-bordered table-print">
         <tbody>
           <tr>
-            <td>Consulta:</td>
-            <td>{consulta}</td>
+            <td className="observationText">Consulta:</td>
+            <td className="observationText">{consulta}</td>
           </tr>
           <tr>
-            <td>Cliente:</td>
-            <td>{cliente}</td>
+            <td className="observationText">Cliente:</td>
+            <td className="observationText">{cliente}</td>
           </tr>
           <tr>
-            <td colSpan={2}>Favor conferir mercadoria no ato da entrega.</td>
+            <td colSpan={2} className="observationText">
+              *Favor conferir mercadoria no ato da entrega | {datetime}
+            </td>
           </tr>
         </tbody>
       </table>

@@ -2,6 +2,10 @@
 /* body * {
     display: none !important;
 } */
+tr {
+  line-height: 8px;
+}
+
 .header__main img {
   margin-bottom: 2%;
   margin-top: 1%;
@@ -95,7 +99,9 @@ span {
 
 .table-print {
   /* margin-left: 5%; */
-  font-size: 13px;
+  font-size: 10px;
+  max-width: 80%;
+  margin: auto;
 }
 
 .form-body-container {
@@ -110,4 +116,8 @@ span {
 .print-buttons {
   display: inline-flex;
   gap: 10px;
+}
+
+.observationText {
+  font-size: 10px;
 }
